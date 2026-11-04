@@ -34,13 +34,40 @@ svg text{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}svg .wire
 .calc-presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.calc-presets .btn{font-size:.8rem;padding:8px 10px}.calc-diagram{background:radial-gradient(ellipse at center,#1f3550,#111927);border:1px solid #355070;border-radius:12px;margin-top:14px;overflow:hidden}.calc-diagram svg{width:100%;height:auto;display:block}.calc-tips{margin-top:12px;font-size:.86rem;color:var(--sub)}.calc-tips b{color:#cee3ff}.calc-result-caption{font-size:.82rem;color:#b8cce6}.calc-version{display:inline-flex;align-items:center;padding:3px 9px;border-radius:99px;background:#1f4c55;color:#a5f2dc;border:1px solid #34737d;font-size:.78rem;font-weight:750}
 @media(max-width:1000px){.calculator{grid-template-columns:1fr}}
 @media(max-width:430px){.calc-panel{padding:14px}.calc-mode{font-size:.76rem;padding:10px 4px}.calc-field-head label{font-size:.84rem}.calc-number{width:135px}.calc-answer strong{font-size:1.8rem}}
+
+.v12-training{margin-top:22px;padding:22px 0 6px;border-top:1px solid #3c4d66}
+.v12-training h3{font-size:1.25rem;margin:0 0 5px}
+.v12-training p{color:#b9c9de}
+.v12-levels{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.v12-level{padding:5px 11px;border:1px solid #405a79;background:#17253a;color:#b5c5d9;border-radius:99px;font-size:.83rem}
+.v12-level.current{background:#355388;border-color:#83adf7;color:white}
+.v12-level.correct{background:#1c503c;color:#b3ebcf;border-color:#58a983}
+.v12-level.incorrect{background:#57313a;color:#ffc2c8;border-color:#ad7781}
+.v12-exercise{border:1px solid #3a506a;background:#111b2b;padding:17px;border-radius:14px}
+.v12-exercise h4{font-size:1.1rem;margin:7px 0}
+.v12-circuit{width:100%;max-width:620px;margin:13px auto;background:#172336;border-radius:10px}
+.v12-circuit svg{width:100%;height:auto;display:block;max-height:250px}
+.v12-entry{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.v12-entry input{max-width:180px;width:48%;border:1px solid #6684a8;background:#1e3047;border-radius:9px;padding:10px;color:#fff;font-size:1rem}
+.v12-feedback{padding:13px 15px;background:#1a3040;border:1px solid #567590;border-radius:11px;margin:15px 0}
+.v12-feedback.bad{background:#392832;border-color:#b07487}
+.v12-feedback.good{background:#17392f;border-color:#54aa87}
+.v12-feedback strong{display:block;margin-bottom:7px;font-size:1.02rem}
+.v12-feedback p{font-size:.9rem;margin:8px 0;color:#edf4fb}
+.v12-feedback ol{padding-left:24px;font-size:.9rem}
+.v12-feedback li{margin:6px 0}
+.v12-actions{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.v12-review{padding:12px 14px;margin:9px 0;background:#1d2c41;border-radius:10px;border:1px solid #395473}
+.v12-review b{color:#bbd6ff}
+@media(max-width:560px){.v12-exercise{padding:12px}.v12-training{padding-top:14px}.v12-entry input{width:60%}}
+
 </style>
 </head>
 <body>
 <header class="topbar"><div class="container topinner"><div class="brand"><div class="logo" aria-hidden="true">Ω</div><div><h1>基本電學｜互動式學習平台 <span class="calc-version">V1.2</span></h1><small>第一～第三章・21 小節・四位小數計算機</small></div></div><div class="header-actions"><a href="#app" class="pill">開始學習</a><button class="pill" id="overviewBtn">章節總覽</button></div></div></header>
 <div class="container"><section class="hero"><div><div class="eyebrow">BASIC ELECTRICITY · INTERACTIVE</div><h2>從基本觀念，到串並聯電路</h2><p>依照你的課本目錄規劃。每個小節都有白話解說、公式、逐步計算、可調整的電路圖和自我檢查。調整數值，就能直接觀察結果。</p></div><div class="stats"><div class="stat"><strong>3</strong><span>章節</span></div><div class="stat"><strong>21</strong><span>小節</span></div><div class="stat"><strong id="completeStat">0/21</strong><span>已完成</span></div></div></section>
 <div class="app" id="app"><aside class="sidebar" aria-label="章節目錄"><h3>課本目錄</h3><div id="navChapters" class="nav-chapters"></div><div class="sidebar-bottom"><div class="progressline" aria-label="學習進度"><span id="progressFill"></span></div><p class="progress-note" id="progressText">已完成 0 / 21 小節</p><button class="btn" id="quizSideBtn" style="width:100%">📝 章節測驗</button></div></aside>
-<main class="content"><div class="tabs" role="navigation" aria-label="網站分頁"><button class="tab active" data-view="overview">學習總覽</button><button class="tab" data-view="calculator">🧮 電學計算機 V1.2</button><button class="tab" data-view="lesson">互動課程</button><button class="tab" data-view="formulas">公式總整理</button><button class="tab" data-view="quiz">章節測驗</button></div>
+<main class="content"><div class="tabs" role="navigation" aria-label="網站分頁"><button class="tab" data-view="overview">學習總覽</button><button class="tab active" data-view="calculator">🧮 電學計算機 V1.2</button><button class="tab" data-view="lesson">互動課程</button><button class="tab" data-view="formulas">公式總整理</button><button class="tab" data-view="quiz">章節測驗</button></div>
 <section id="overviewView" class="panel"><div class="overview-top"><h2>選一章開始學習</h2><p class="muted" style="margin:0">依序上課，或直接跳到要複習的小節；每次調整滑桿，圖和答案會一起更新。V1.2 新增可輸入至 1000、結果顯示 4 位小數的電學計算機。</p></div><div id="overviewCards" class="overview"></div><p class="offline">ⓘ 本網頁只有一個 index.html，不需連網、沒有帳號，也不會傳送你的數值到伺服器。完成進度只存在這台裝置的瀏覽器中。</p></section>
 <section id="calculatorView" class="panel hidden" aria-label="V1.2 四位小數電學計算機">
 <div class="overview-top"><div class="eyebrow">V1.2 · CALCULATOR</div><h2>🧮 電學計算機 <span class="calc-version">4 位小數</span></h2><p class="muted" style="margin:0">自由切換計算電流 I、電壓 V、電阻 R。兩個輸入值都能設定到 1000，數字輸入精度為 0.0001；調整後立刻更新結果與電路圖。</p></div>
@@ -61,7 +88,14 @@ svg text{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}svg .wire
 <div class="eyebrow">即時電路示意</div><h3 style="margin:4px 0 7px">歐姆定律：V = I × R</h3><p class="muted small" style="margin:0">電流由電源正極經電阻流回負極；藍色流動線代表約定電流方向。</p>
 <div class="calc-diagram"><svg viewBox="0 0 760 360" role="img" aria-label="電源和電阻串接的理想直流電路"><path class="wire" d="M132 124 H310 M476 124 H646 V281 H132 V206"/><path class="flow" id="calcFlow" d="M166 124 H310 M476 124 H646 V281 H200"/><circle cx="132" cy="165" r="41" class="part"/><text x="132" y="159" text-anchor="middle" class="callout">+</text><text x="132" y="184" text-anchor="middle" class="callout">−</text><path d="M310 124 l14 -16 16 32 17 -32 17 32 17 -32 17 32 16 -32 18 16 H476" fill="none" stroke="#c1d9ef" stroke-width="5"/><path d="M310 77 H446 m-14 -10 14 10 -14 10" stroke="#7fafff" stroke-width="4" fill="none"/><text x="395" y="53" id="calcDiagramI" class="callout" text-anchor="middle">I = 1.0000 A</text><text x="46" y="93" id="calcDiagramV" class="label">V = 1000.0000 V</text><text x="397" y="188" class="label" text-anchor="middle" id="calcDiagramR">R = 1000.0000 Ω</text><text x="385" y="333" class="tiny" text-anchor="middle">理想電路 · 忽略電池內阻與導線電阻</text></svg></div>
 <div class="formula-list" style="margin-top:14px;grid-template-columns:1fr"><div class="formula-row"><b>求電流 I</b><span>I = V ÷ R</span><small>單位：A = V / Ω</small></div><div class="formula-row"><b>求電壓 V</b><span>V = I × R</span><small>單位：V = A × Ω</small></div><div class="formula-row"><b>求電阻 R</b><span>R = V ÷ I</span><small>單位：Ω = V / A</small></div></div>
-</div></div></section>
+</div></div>
+<section class="v12-training" id="v12PracticeArea" aria-labelledby="v12PracticeTitle">
+ <div class="quiz-top"><div><h3 id="v12PracticeTitle">📝 V1.2 三題計算練習：簡單 → 中等 → 困難</h3><p class="muted small" style="margin:0">每題都有電路圖。輸入數字後點「送出並分析」，會說明答錯原因、正確公式及完整計算過程。</p></div><button class="btn" id="v12Reset" type="button">重新練習</button></div>
+ <div id="v12Levels" class="v12-levels"></div>
+ <div id="v12Question"></div>
+ <p class="offline">ⓘ 三題練習只在此瀏覽器進行；答案四捨五入到小數點後四位，不會傳送到伺服器。</p>
+</section>
+</section>
 <section id="lessonView" class="panel hidden" aria-live="polite"><div class="lesson-head"><div><div class="topicno" id="topicNo"></div><h2 id="topicTitle"></h2><p id="topicIntro"></p></div><button class="btn mark" id="markBtn">○ 標記已學會</button></div><div class="summary"><div class="explain"><h3>💡 觀念要點</h3><ul id="keyPoints"></ul></div><div class="formula-box"><h3>必懂公式</h3><div class="formula-main" id="topicFormula"></div><p id="formulaDesc"></p></div></div><div class="learning-grid"><div class="lab"><h3>⚡ 互動電路實驗</h3><p class="labintro" id="labIntro"></p><div class="inputs" id="labInputs"></div><div class="outputs" id="labOutputs" aria-live="polite"></div><div class="diagram-wrap"><div id="labDiagram"></div><div class="diagram-caption" id="diagramCaption"></div></div></div><div class="worked"><h3>📖 例題與計算步驟</h3><p class="example-q" id="exampleQuestion"></p><ol class="steps" id="exampleSteps"></ol><div class="note-box" id="commonMistake"></div><div style="margin-top:19px;border-top:1px solid #344359;padding-top:13px"><h3>隨堂檢查</h3><p id="miniQuestion"></p><button class="btn" id="showAnswerBtn" aria-expanded="false">看答案與解釋</button><p id="miniAnswer" class="feedback hidden"></p></div></div></div><div class="nextrow"><button class="btn" id="prevBtn">← 上一節</button><button class="btn primary" id="nextBtn">下一節 →</button></div></section>
 <section id="formulasView" class="panel hidden"><h2 style="margin-top:0">📐 第一～第三章公式總整理</h2><p class="muted">符號統一：V 為電壓、I 為電流、R 為電阻；若同一公式出現 Q，請看單位辨別電荷量（C）或熱量（J）。</p><div class="formula-list" id="formulaList"></div></section>
 <section id="quizView" class="panel hidden"><div class="quiz-top"><h2>📝 章節測驗</h2><button class="btn" id="resetQuiz">重來一次</button></div><p class="muted" style="margin:5px 0">共 21 題，每小節一題，作答後會顯示解析。可以只練習指定章節。</p><div class="chapter-filter" id="quizFilters"><button class="active" data-chapter="0">全部 21 題</button><button data-chapter="1">第一章</button><button data-chapter="2">第二章</button><button data-chapter="3">第三章</button></div><div style="border-top:1px solid #344359;margin-top:17px;padding-top:16px"><div class="quiz-meta" id="quizMeta"></div><div class="question" id="quizQuestion"></div><div id="quizOptions" class="choice-grid"></div><div id="quizFeedback" class="feedback hidden"></div><div class="nextrow"><span id="scoreText" class="muted"></span><button class="btn primary" id="quizNext">下一題 →</button></div></div></section>
@@ -268,7 +302,70 @@ $('calcFields').addEventListener('change',e=>{const el=e.target;if(!el.hasAttrib
 document.querySelectorAll('[data-calc-preset]').forEach(btn=>btn.addEventListener('click',()=>{const preset=btn.dataset.calcPreset;calcMode='i';calcData.v=preset==='12'?12:preset==='5'?5:1000;calcData.r=preset==='12'?6:preset==='5'?3:1000;calcData.i=1;calculatorSetMode('i')}));
 calculatorSetMode('i');
 
-navBuild();renderOverview();renderFormulas();renderLesson();let match=location.hash.match(/^#lesson-(\d-\d)$/);if(match&&courseById[match[1]]!==undefined){active=courseById[match[1]];renderLesson();navHighlight();setView('lesson')}else setView('overview');
+(function installV12Training(){
+  'use strict';
+  const $q=id=>document.getElementById(id);
+  const f4=x=>Number(x).toFixed(4);
+  const approx=(x,y)=>Math.abs(x-y)<=Math.max(.00012,Math.abs(y)*.000006);
+  const questions=[
+    {difficulty:"簡單",title:"求電流 I",text:"12 V 電源接一個 6 Ω 電阻，流過的電流是多少 A？",unit:"A",ans:2,circuit:"one",
+     steps:["已知 V = 12 V、R = 6 Ω，要求 I。","使用 I = V ÷ R。","代入：I = 12 ÷ 6 = 2.0000 A。"],
+     explain(v){if(approx(v,0.5))return"你可能把公式顛倒成 R ÷ V = 6 ÷ 12。求電流一定是 I = V ÷ R。";if(approx(v,72))return"你用了乘法 12 × 6。乘法是求電壓 V = I × R，求電流要用除法。";return"請先確認已知電壓 V 與電阻 R，再代入 I = 12 ÷ 6。";}},
+    {difficulty:"中等",title:"求電壓 V",text:"16 Ω 電阻流過 1.25 A 的電流，求兩端電壓是多少 V？",unit:"V",ans:20,circuit:"two",
+     steps:["已知 I = 1.25 A、R = 16 Ω，要求 V。","使用 V = I × R。","代入：V = 1.25 × 16 = 20.0000 V。"],
+     explain(v){if(approx(v,12.8))return"你可能算成 16 ÷ 1.25。求電壓要把 I 與 R 相乘。";if(approx(v,17.25))return"你把 I 與 R 加起來了。公式是 V = I × R，不是加法。";return"題目求的是 V，應使用 V = I × R = 1.25 × 16。";}},
+    {difficulty:"困難",title:"串並聯混合求總電流",text:"18 V 電源接 2 Ω 串聯「6 Ω 與 9 Ω 並聯」的電阻組，求電源總電流 I（A）。",unit:"A",ans:18/5.6,circuit:"mixed",
+     steps:["先算 6 Ω 和 9 Ω 的並聯電阻：Rₚ = (6 × 9) ÷ (6 + 9) = 3.6000 Ω。","再加串聯的 2 Ω：Rₜ = 2 + 3.6 = 5.6000 Ω。","最後 I = V ÷ Rₜ = 18 ÷ 5.6 = 3.214285… A。","四捨五入到四位小數：I = 3.2143 A。"],
+     explain(v){if(approx(v,18/17))return"你可能把全部 2、6、9 Ω 當成串聯直接相加了；但 6 Ω、9 Ω 是並聯。";if(approx(v,5))return"你算到並聯電阻後，漏掉了串聯的 2 Ω。";if(approx(v,5.6))return"5.6 是總電阻（Ω），但題目問電流（A），還要算 18 ÷ 5.6。";if(approx(v,5.6/18))return"你可能將電阻除以電壓，求電流的公式必須是 I = V ÷ R。";return"依序做三步：先並聯 (6×9)/(6+9)、再串聯加 2、最後 18 除以總電阻。";}}
+  ];
+  let pos=0,checked=false,history=[];
+  function diagram(kind){
+    const a=kind==="one",b=kind==="two";
+    if(kind!=="mixed")return `<svg viewBox="0 0 560 200" role="img" aria-label="電池和單一電阻迴路"><path d="M75 65H202M350 65H476V165H75V111" fill="none" stroke="#adc1d6" stroke-width="5"/><path d="M75 65V78M75 109V111" stroke="#adc1d6" stroke-width="5"/><path d="M54 80H97M61 92H89M54 104H97" stroke="#c5e3ff" stroke-width="3"/><path d="M202 65l16 -18 16 36 16 -36 16 36 16 -36 16 36 16 -36 16 18H350" stroke="#84b5fc" stroke-width="4" fill="none"/><text x="80" y="37" fill="white" text-anchor="middle" font-size="19">${a?"12 V":"V = ?"}</text><text x="280" y="28" fill="#a8c8ff" text-anchor="middle" font-size="19">${a?"6 Ω":"16 Ω"}</text><text x="285" y="121" fill="#9ddfe2" text-anchor="middle" font-size="19">${a?"I = ?":"I = 1.25 A"}</text><text x="285" y="192" fill="#b4c7dd" text-anchor="middle" font-size="14">理想直流電路</text></svg>`;
+    return `<svg viewBox="0 0 600 263" role="img" aria-label="18伏特電源，2歐姆串聯6歐姆和9歐姆的並聯組合"><path d="M75 65H145M243 65H300V35H349M443 35H519V204H75V115" fill="none" stroke="#a6b6cc" stroke-width="5"/><path d="M75 65V77M75 108V115" stroke="#a6b6cc" stroke-width="5"/><path d="M53 79H97M61 92H89M53 104H97" stroke="#c9e6ff" stroke-width="3"/><path d="M145 65l12 -18 13 36 13 -36 13 36 13 -36 13 36 21 -18" stroke="#91beff" stroke-width="3.5" fill="none"/><path d="M349 35l12 -17 13 34 13 -34 13 34 13 -34 13 34 17 -17" stroke="#9fe0d4" stroke-width="3.5" fill="none"/><path d="M300 65V139H349M443 139H519V35" stroke="#a6b6cc" stroke-width="5" fill="none"/><path d="M349 139l12 -17 13 34 13 -34 13 34 13 -34 13 34 17 -17" stroke="#ffd39c" stroke-width="3.5" fill="none"/><text x="77" y="45" fill="white" text-anchor="middle" font-size="18">18 V</text><text x="194" y="32" fill="#c3dfff" text-anchor="middle" font-size="17">2 Ω</text><text x="396" y="13" fill="#a6f0de" text-anchor="middle" font-size="15">6 Ω</text><text x="396" y="187" fill="#ffe0ab" text-anchor="middle" font-size="17">9 Ω</text><text x="300" y="242" fill="#b8cae2" text-anchor="middle" font-size="16">2 Ω 串聯 (6 Ω ∥ 9 Ω)</text></svg>`;
+  }
+  function levels(){
+    $q("v12Levels").innerHTML=questions.map((q,j)=>{
+      const mark=history[j]?(history[j].correct?"correct":"incorrect"):j===pos?"current":"";
+      return `<span class="v12-level ${mark}">第 ${j+1} 題・${q.difficulty}${history[j]?(history[j].correct?" ✓":" ✕"):""}</span>`;
+    }).join("");
+  }
+  function render(){
+    levels();
+    if(pos===3){
+      const score=history.filter(x=>x.correct).length;
+      $q("v12Question").innerHTML=`<div class="v12-exercise"><h4>完成三題｜本次得分 ${score} / 3</h4><p>${score===3?"全部答對！":"請針對答錯觀念重新複習。"}</p>${history.map((x,j)=>`<div class="v12-review"><b>第 ${j+1} 題 ${x.correct?"✓ 正確":"✕ 答錯"}</b><div>你的答案：${f4(x.answer)} ${questions[j].unit}；正確答案：${f4(questions[j].ans)} ${questions[j].unit}</div><div>${x.feedback}</div></div>`).join("")}<button class="btn primary" type="button" id="v12Repeat">重新挑戰三題</button></div>`;
+      $q("v12Repeat").addEventListener("click",reset);
+      return;
+    }
+    const q=questions[pos];
+    $q("v12Question").innerHTML=`<div class="v12-exercise"><div class="eyebrow">第 ${pos+1} 題 · ${q.difficulty}</div><h4>${q.title}</h4><p>${q.text}</p><div class="v12-circuit">${diagram(q.circuit)}</div><form id="v12Form"><div class="v12-entry"><label for="v12Answer">你的答案</label><input id="v12Answer" type="number" inputmode="decimal" step="any" min="0" max="1000" placeholder="例如 3.2143" required><span>${q.unit}</span><button type="submit" class="btn primary">送出並分析</button></div></form><div id="v12Feedback" class="v12-feedback hidden" aria-live="polite"></div><div class="v12-actions"><span class="small muted">提交後才揭曉詳解與可能算錯的地方。</span><button type="button" id="v12Next" class="btn primary" disabled>${pos===2?"查看三題總分析":"下一題 →"}</button></div></div>`;
+    $q("v12Form").addEventListener("submit",submit);
+    $q("v12Next").addEventListener("click",()=>{if(checked){pos++;checked=false;render()}});
+  }
+  function submit(e){
+    e.preventDefault();
+    if(checked)return;
+    const q=questions[pos],raw=$q("v12Answer").value.trim(),value=Number(raw);
+    if(!raw||!Number.isFinite(value)||value<0||value>1000)return;
+    const ok=Math.abs(value-q.ans)<=.00005+1e-9;
+    const feedback=ok?"公式和單位都正確。":q.explain(value);
+    history.push({correct:ok,answer:value,feedback});
+    checked=true;
+    levels();
+    const box=$q("v12Feedback");
+    box.classList.remove("hidden");
+    box.classList.add(ok?"good":"bad");
+    box.innerHTML=`<strong>${ok?"✓ 答對了":"✕ 答錯了：錯誤分析"}</strong><p>你的答案：${f4(value)} ${q.unit}，正確答案：${f4(q.ans)} ${q.unit}</p><p>${feedback}</p><p><b>計算步驟：</b></p><ol>${q.steps.map(step=>`<li>${step}</li>`).join("")}</ol>`;
+    $q("v12Answer").disabled=true;
+    $q("v12Form").querySelector('button[type="submit"]').disabled=true;
+    $q("v12Next").disabled=false;
+  }
+  function reset(){pos=0;checked=false;history=[];render()}
+  $q("v12Reset").addEventListener("click",reset);
+  render();
+})();
+navBuild();renderOverview();renderFormulas();renderLesson();let match=location.hash.match(/^#lesson-(\d-\d)$/);if(match&&courseById[match[1]]!==undefined){active=courseById[match[1]];renderLesson();navHighlight();setView('lesson')}else setView('calculator');
 </script>
 </body>
 </html>
