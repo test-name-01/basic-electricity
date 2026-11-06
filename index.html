@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#10141d">
-<meta name="description" content="基本電學 V1.3 計算機版：顯示小數精度 0～5 位、最大輸入 10000、八題分級練習與錯誤分析，保留第一至第三章21個小節互動教材。">
-<title>基本電學｜互動式學習平台 V1.3（計算機版）</title>
+<meta name="description" content="基本電學 V1.3 十萬題題庫版：手機、平板、電腦響應式操作，顯示小數精度 0～5 位、最大輸入 10000、八題分級練習與錯誤分析，保留第一至第三章21個小節互動教材。">
+<title>基本電學｜互動式學習平台 V1.3（10 萬題題庫版）</title>
 <style>
 :root{color-scheme:dark;--bg:#0c111b;--surface:#171f2e;--surface2:#1c2839;--edge:#344055;--text:#eff5ff;--sub:#a5b5ca;--blue:#80aaff;--teal:#66dfc4;--orange:#ffcd8a;--good:#85e5b0;--red:#ffabb1}
 *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font:16px/1.7 system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:radial-gradient(ellipse 70vw 65vw at 94% -6%,#243554 0,transparent 78%),var(--bg);color:var(--text);min-height:100vh}
@@ -41,19 +41,139 @@ svg text{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}svg .wire
 .hint-popover{position:absolute;right:0;top:calc(100% + 6px);z-index:8;width:min(310px,80vw);background:#142b43;border:1px solid #6aa5ce;box-shadow:0 15px 40px #0009;border-radius:12px;padding:12px;color:#e2f4ff;font-size:.86rem}.hint-popover p{margin:6px 0}.hint-popover div+div{border-top:1px solid #476781;margin-top:8px;padding-top:8px}
 .practice-grade{font-size:clamp(2.8rem,7vw,4.5rem);line-height:1.3;color:#a9e5ff;font-weight:800}.practice-grade small{font-size:1.2rem;color:#c4d5e8}.practice-summary details{background:#18293d;border:1px solid #3a5676;padding:11px;border-radius:10px;text-align:left;margin:8px 0}.practice-summary summary{cursor:pointer;font-weight:700}.practice-summary details p{margin:7px 0}.practice-summary details ol{padding-left:24px;margin:5px 0}
 @media(max-width:560px){.precision-select{font-size:.84rem}.practice-topline{align-items:flex-start}.hint-popover{width:min(300px,85vw)}}
+
+/* 100,000 題題庫及手機、平板、桌面 UI 觸控最佳化 */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: clip; }
+button, input, select { -webkit-tap-highlight-color: transparent; }
+button, .btn, .tab, .nav-btn { touch-action: manipulation; }
+button:focus-visible, input:focus-visible, select:focus-visible {outline: 3px solid #9bc6ff; outline-offset: 3px;}
+.chapter-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.chapter-drawer-toggle{display:none;white-space:nowrap;min-height:44px}
+.bank-question-id{display:inline-flex;align-items:center;font-weight:600;font-size:.77rem;padding:4px 9px;border-radius:7px;border:1px solid #436d88;background:#20384b;color:#b7d8f3;font-variant-numeric:tabular-nums}
+.practice-legend{justify-content:flex-start;gap:8px}
+.stat{min-width:115px}.stats .stat strong{font-variant-numeric:tabular-nums}
+.practice-box,.calc-card,.panel{min-width:0}
+.calc-practice-intro p{max-width:820px;line-height:1.65}
+.practice-answer-row input{font-size:16px} /* 防止 iPhone 輸入欄位自動縮放 */
+.calc-number{font-size:16px}
+.practice-circuit svg{aspect-ratio:auto}
+@media (min-width:1250px){
+ .calc-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+ .calc-practice{padding-top:26px}
+ .practice-box{padding:24px}
+ .practice-answer-row input{min-height:46px}
+}
+@media (max-width:1100px){
+ .app{grid-template-columns:minmax(0,1fr);gap:12px}
+ .sidebar{position:static;max-height:none;overflow:visible;padding:13px 16px}
+ .sidebar h3{margin:0}
+ .chapter-drawer-toggle{display:inline-flex;align-items:center;justify-content:center}
+ .sidebar .nav-chapters{display:none}
+ .sidebar .nav-chapters.expanded{display:block;margin-top:12px;border-top:1px solid var(--edge);padding-top:10px;max-height:320px;overflow-y:auto}
+ .sidebar .nav-chapters .nav-btn{min-height:44px}
+ .sidebar-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border-top:1px solid var(--edge);margin-top:12px;padding-top:12px}
+ .sidebar-bottom .progressline{width:min(180px,36vw)}
+ .sidebar-bottom .progress-note{margin:0}
+ .sidebar-bottom #quizSideBtn{width:auto!important}
+ .learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .summary{grid-template-columns:minmax(0,1fr) 255px}
+ .calc-layout{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+ .calc-layout,.learning-grid{grid-template-columns:1fr}
+ .summary{grid-template-columns:minmax(0,1fr)}
+ .stats{gap:8px}
+ .calc-card{padding:18px}
+ .overview{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tabs{display:flex;gap:7px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:thin}
+ .tab{flex:0 0 auto;scroll-snap-align:start;min-height:44px}
+ .practice-circuit{max-width:650px}
+}
+@media (max-width:600px){
+ .topbar{position:static;backdrop-filter:none}
+ .topinner{min-height:62px}
+ .brand h1{font-size:1rem;line-height:1.25}
+ .brand small{display:none}
+ .brand .logo{width:38px;height:38px;border-radius:11px;font-size:21px}
+ .header-actions{display:none}
+ .container{padding-left:12px;padding-right:12px}
+ .hero{padding:17px 0 16px}
+ .hero h2{font-size:1.44rem}
+ .hero p{font-size:.88rem}
+ .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}
+ .stat{min-width:0;padding:9px 8px}
+ .stat strong{font-size:1.12rem}
+ .app{padding-bottom:30px}
+ .sidebar{padding:12px;border-radius:14px}
+ .sidebar-bottom{gap:8px}
+ .sidebar-bottom .progressline{width:100%;flex:1 1 100%}
+ .sidebar-bottom #quizSideBtn{flex:1 1 auto}
+ .sidebar-bottom .progress-note{flex:1 1 auto}
+ .panel{padding:12px;border-radius:14px}
+ .tabs{margin-bottom:10px}
+ .tab{font-size:.82rem;padding:10px 11px;min-height:44px}
+ .calculator-head{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ .calculator-head p{font-size:.85rem}
+ .precision-select{justify-self:start;min-height:44px}
+ .calc-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:13px 0}
+ .calc-mode{min-width:0;padding:10px 4px;min-height:68px;display:flex;flex-direction:column;justify-content:center}
+ .calc-mode b{font-size:.89rem}
+ .calc-mode small{font-size:.7rem;line-height:1.4}
+ .calc-card{padding:12px;border-radius:12px}
+ .calc-input-top{flex-wrap:wrap}
+ .calc-input-top label{flex:1 1 auto}
+ .calc-number{min-width:106px;width:48%;padding:10px 8px}
+ .calc-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .calc-shortcuts button{min-height:44px}
+ .calc-circuit svg{width:100%;height:auto}
+ .calc-result-number{font-size:clamp(1.45rem,6vw,2.1rem)}
+ .calc-practice{padding-top:16px}
+ .calc-practice-intro{display:grid;grid-template-columns:1fr}
+ .calc-practice-intro h3{font-size:1.08rem;line-height:1.4}
+ #calcRestart{width:100%;min-height:46px}
+ .level-badges{display:flex;overflow-x:auto;white-space:nowrap;padding-bottom:6px;scrollbar-width:thin}
+ .level-pill{flex:none;white-space:nowrap;min-height:32px;display:inline-flex;align-items:center}
+ .practice-box{padding:12px}
+ .practice-question{font-size:1rem;line-height:1.65}
+ .practice-circuit{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #344c67;border-radius:10px}
+ .practice-circuit svg{width:100%;min-width:400px;max-height:none}
+ .practice-circuit::after{content:'↔ 電路圖可左右滑動';display:block;position:sticky;left:0;padding:4px 9px;color:#9ebadb;font-size:.74rem;background:#18283b}
+ .practice-answer-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}
+ .practice-answer-row label{grid-column:1/-1}
+ .practice-answer-row input{grid-column:1;min-width:0;width:100%;min-height:46px}
+ .practice-answer-row span{grid-column:2;align-self:center}
+ .practice-answer-row .btn{grid-column:1/-1;width:100%;min-height:46px}
+ .practice-actions{display:grid;grid-template-columns:1fr}
+ .practice-actions .btn{min-height:46px;width:100%}
+ .practice-summary{padding:12px}
+ .practice-summary details{overflow-wrap:anywhere}
+ .practice-hint .btn{min-height:44px}
+ .hint-popover{max-width:calc(100vw - 34px);width:min(315px,85vw)}
+ .formula-list,.overview{grid-template-columns:1fr}
+ .diagram-wrap svg{min-width:400px}
+}
+@media (max-width:370px){
+ .brand h1{font-size:.92rem}
+ .sidebar-bottom #quizSideBtn{width:100%!important}
+ .calc-mode b{font-size:.77rem}
+ .calc-mode small{font-size:.62rem}
+ .calc-number{width:100%;max-width:none}
+}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after { scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important; }}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="container topinner"><div class="brand"><div class="logo" aria-hidden="true">Ω</div><div><h1>基本電學｜互動式學習平台 <span class="release-chip">V1.3</span></h1><small>第一～第三章 · 21 小節 · 可調精度計算機與錯題分析</small></div></div><div class="header-actions"><a href="#app" class="pill">開始學習</a><button class="pill" id="overviewBtn">章節總覽</button></div></div></header>
-<div class="container"><section class="hero"><div><div class="eyebrow">BASIC ELECTRICITY · INTERACTIVE</div><h2>基本電學 V1.3 · 互動計算機與電路學習</h2><p>依照你的課本目錄規劃。每個小節都有白話解說、公式、逐步計算、可調整的電路圖和自我檢查。調整數值，就能直接觀察結果。新版加入求 V／I／R 的計算機、0～5 位小數精度選擇與八題分級練習。</p></div><div class="stats"><div class="stat"><strong>3</strong><span>章節</span></div><div class="stat"><strong>21</strong><span>小節</span></div><div class="stat"><strong id="completeStat">0/21</strong><span>已完成</span></div></div></section>
-<div class="app" id="app"><aside class="sidebar" aria-label="章節目錄"><h3>課本目錄</h3><div id="navChapters" class="nav-chapters"></div><div class="sidebar-bottom"><div class="progressline" aria-label="學習進度"><span id="progressFill"></span></div><p class="progress-note" id="progressText">已完成 0 / 21 小節</p><button class="btn" id="quizSideBtn" style="width:100%">📝 章節測驗</button></div></aside>
+<header class="topbar"><div class="container topinner"><div class="brand"><div class="logo" aria-hidden="true">Ω</div><div><h1>基本電學｜互動式學習平台 <span class="release-chip">V1.3</span></h1><small>第一～第三章 · 21 小節 · 10 萬題題庫與錯題分析</small></div></div><div class="header-actions"><a href="#app" class="pill">開始學習</a><button class="pill" id="overviewBtn">章節總覽</button></div></div></header>
+<div class="container"><section class="hero"><div><div class="eyebrow">BASIC ELECTRICITY · INTERACTIVE</div><h2>基本電學 V1.3 · 互動計算機與電路學習</h2><p>依照你的課本目錄規劃。每個小節都有白話解說、公式、逐步計算、可調整的電路圖和自我檢查。調整數值，就能直接觀察結果。新版加入求 V／I／R 的計算機、0～5 位小數精度選擇與 10 萬題動態題庫，每回隨機抽出 8 題練習。</p></div><div class="stats"><div class="stat"><strong>3</strong><span>章節</span></div><div class="stat"><strong>21</strong><span>小節</span></div><div class="stat"><strong>100,000</strong><span>題目變化</span></div><div class="stat"><strong id="completeStat">0/21</strong><span>已完成</span></div></div></section>
+<div class="app" id="app"><aside class="sidebar" aria-label="章節目錄"><div class="chapter-drawer-head"><h3>課本目錄</h3><button id="toggleChapters" class="btn chapter-drawer-toggle" type="button" aria-expanded="false" aria-controls="navChapters">展開 21 節目錄 ▾</button></div><div id="navChapters" class="nav-chapters"></div><div class="sidebar-bottom"><div class="progressline" aria-label="學習進度"><span id="progressFill"></span></div><p class="progress-note" id="progressText">已完成 0 / 21 小節</p><button class="btn" id="quizSideBtn" style="width:100%">📝 章節測驗</button></div></aside>
 <main class="content"><div class="tabs" role="navigation" aria-label="網站分頁"><button class="tab active" data-view="calculator">⚡ 計算機 V1.3</button><button class="tab" data-view="overview">學習總覽</button><button class="tab" data-view="lesson">互動課程</button><button class="tab" data-view="formulas">公式總整理</button><button class="tab" data-view="quiz">章節測驗</button></div>
 <section id="calculatorView" class="panel hidden" aria-labelledby="calculatorTitle">
  <div class="calculator-head"><div><div class="eyebrow">INTERACTIVE CALCULATOR · V1.3</div><h2 id="calculatorTitle">⚡ 歐姆定律可調精度計算機</h2><p>先選擇要算的量，再輸入已知數值。每個輸入上限 <strong>10000</strong>，最小輸入精度為 0.00001；可自由選擇顯示小數點後 <strong>0～5 位</strong>，並提供公式代入、電路圖和觀念解說。</p></div><label class="precision-select" for="calcPrecision">顯示精度 <select id="calcPrecision" aria-label="設定小數位數"><option value="0">0 位</option><option value="1">1 位</option><option value="2">2 位</option><option value="3">3 位</option><option value="4" selected>4 位</option><option value="5">5 位</option></select></label></div>
  <div class="calc-switch" role="group" aria-label="選擇要求的電學量"><button class="calc-mode selected" type="button" data-solve="i" aria-pressed="true"><b>求電流 I</b><small>I = V ÷ R</small></button><button class="calc-mode" type="button" data-solve="v" aria-pressed="false"><b>求電壓 V</b><small>V = I × R</small></button><button class="calc-mode" type="button" data-solve="r" aria-pressed="false"><b>求電阻 R</b><small>R = V ÷ I</small></button></div>
  <div class="calc-layout"><div class="calc-card"><h3>① 輸入已知條件</h3><p class="calc-info">數字欄位可輸入到小數點後五位；下方滑桿適合快速調整。數值皆為非負值，計算限制在理想直流電阻電路。</p><div class="calc-input-grid" id="calcInputGrid"></div><div class="calc-shortcuts"><button class="btn" type="button" data-calc-example="standard">12 V / 6 Ω</button><button class="btn" type="button" data-calc-example="max">10000 ÷ 10000</button><button class="btn" type="button" data-calc-example="decimal">17 ÷ 6</button></div><div class="calc-answer" aria-live="polite"><div class="calc-result-label" id="calcResultLabel">計算出的電流</div><div class="calc-result-number" id="calcResultNumber">2.0000 A</div></div><div class="calc-trace" id="calcTrace"></div><div class="calc-learn" id="calcLearn"></div></div>
  <div class="calc-card"><h3>② 電路圖與觀念解釋</h3><p class="calc-info" id="calcFormulaExplain"></p><div class="calc-circuit" id="calcDiagram" aria-live="polite"></div><div class="calc-important"><strong>重要觀念：</strong>電流的正確公式是 <b>I = V ÷ R</b>，不是 R ÷ V。例：10000 V ÷ 10000 Ω = <b>1 A</b>。</div><div class="calc-tips">電路採理想模型，不考慮電池內阻與導線損耗。輸入 0 當作除數時，會顯示無法計算，不會顯示錯誤的無限數值。</div></div></div>
- <div class="calc-practice"><div class="calc-practice-intro"><div><h3>③ 八題分級練習：簡單 → 中等 → 困難 → 變化題</h3><p>每次開啟及重新挑戰都會隨機出 8 題（四種難度各 2 題）；每題右上角有兩階段提示。每題 12.5 分，答完後提供 100 分制成績與錯誤分析。</p></div><button class="btn" id="calcRestart" type="button">重新抽題挑戰</button></div><div class="level-badges" id="calcLevels"><span class="level-pill now">第 1 題・簡單</span><span class="level-pill">第 2 題・中等</span><span class="level-pill">第 3 題・中等</span></div><div id="calcPracticeBody"></div><p class="offline">ⓘ 練習不需要登入；所有計算都只在你的瀏覽器中執行。分數不會上傳至伺服器。</p></div>
+ <div class="calc-practice" id="calcPractice"><div class="calc-practice-intro"><div><h3>③ 10 萬題動態題庫・八題分級練習</h3><p>題庫共有 <b>100,000 種不重複的題目變化</b>，以題號即時產生，不必一次載入十萬筆資料。每回抽 8 題：簡單、中等、困難、變化題各 2 題；提示兩階段，滿分 100 分，作答後可查看完整錯誤分析。</p></div><button class="btn" id="calcRestart" type="button">重新抽一組 8 題</button></div><div class="level-badges" id="calcLevels"><span class="level-pill now">第 1 題・簡單</span><span class="level-pill">第 2 題・中等</span><span class="level-pill">第 3 題・中等</span></div><div id="calcPracticeBody"></div><p class="offline">ⓘ 題號涵蓋 #000001～#100000；每次只產生八題，無須下載十萬筆題目。練習不需登入、不傳送分數到伺服器；重新挑戰會盡量避開近期抽過的題目。</p></div>
 </section>
 
 <section id="overviewView" class="panel hidden"><div class="overview-top"><h2>選一章開始學習</h2><p class="muted" style="margin:0">依序上課，或直接跳到要複習的小節；每次調整滑桿，圖和答案會一起更新。</p></div><div id="overviewCards" class="overview"></div><p class="offline">ⓘ 本網頁只有一個 index.html，不需連網、沒有帳號，也不會傳送你的數值到伺服器。完成進度只存在這台裝置的瀏覽器中。</p></section>
@@ -280,108 +400,103 @@ document.querySelectorAll('[data-solve]').forEach(b=>b.addEventListener('click',
 get('calcInputGrid').addEventListener('input',e=>{let t=e.target;if(t.dataset.calcRange){let k=t.dataset.calcRange;values[k]=Number(t.value);get('calc-field-'+k).value=exact(values[k]);update()}else if(t.dataset.calcNum){let k=t.dataset.calcNum,n=Number(t.value);if(t.value.trim()!==''&&Number.isFinite(n)&&n>=0&&n<=10000){values[k]=n;const slider=get('calcInputGrid').querySelector('[data-calc-range="'+k+'"]');slider.value=String(n);update()}}});
 get('calcInputGrid').addEventListener('change',e=>{let t=e.target;if(!t.dataset.calcNum)return;let k=t.dataset.calcNum,n=Number(t.value);if(t.value.trim()!==''&&Number.isFinite(n))values[k]=Math.round(Math.max(0,Math.min(10000,n))*100000)/100000;t.value=exact(values[k]);get('calcInputGrid').querySelector('[data-calc-range="'+k+'"]').value=String(values[k]);update()});
 document.querySelectorAll('[data-calc-example]').forEach(btn=>btn.addEventListener('click',()=>{let k=btn.dataset.calcExample;setMode('i',k==='max'?{v:10000,r:10000}:k==='decimal'?{v:17,r:6}:{v:12,r:6})}));
-function makeRandomQuestions(){
-  // 每次開啟頁面、重新挑戰，會重新抽取數字；避免與上一回整組完全相同。
-  const rand=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
-  const pick=a=>a[rand(0,a.length-1)];
-  const num=x=>String(Number(Number(x).toFixed(8)));
-  const d=x=>Number(Number(x).toFixed(10));
-  const mk=(level,name,query,unit,answer,type,formula,hint,steps,wrong,diagramData,labels)=>({
-    level,name,query,unit,answer,type,formula,hint,steps,wrong,diagramData,labels,
-    title:name,text:query,ans:answer,h1:formula,h2:hint
+/* 輕量化 10 萬題題庫：8 類題型，每類 12,500 種題目，題號 1～100000。
+   題目由題號直接生成，不在記憶體內儲存 100,000 筆資料。 */
+const QUESTION_BANK_SIZE=100000;
+const QUESTIONS_PER_TYPE=12500;
+const QUESTION_TOPICS=['歐姆定律：求電流','歐姆定律：求電壓','歐姆定律：求電阻','串聯電路','並聯電路','串並聯混合','KCL 節點電流','電功率與電阻'];
+const questionNumber=x=>String(Number(Number(x).toFixed(9)));
+const questionRounded=x=>Math.round((x+Number.EPSILON)*1e9)/1e9;
+function createQuestionFromId(id){
+  if(!Number.isInteger(id)||id<1||id>QUESTION_BANK_SIZE)throw new RangeError('題號必須在 1～100000');
+  const type=Math.floor((id-1)/QUESTIONS_PER_TYPE),slot=(id-1)%QUESTIONS_PER_TYPE;
+  const n=questionNumber,d=questionRounded;
+  const make=(level,name,query,unit,answer,kind,formula,hint,steps,wrong,diagramData)=>({
+    id,level,name,query,unit,answer,type:kind,formula,hint,steps,wrong,diagramData
   });
-  function generate(){
-    const all=[];
-    {
-      const v=pick([6,9,12,15,18,24,30,36,48,60,72,90]);
-      const r=pick([2,3,4,5,6,8,9,10,12,15,18]);
-      const i=v/r;
-      all.push(mk('簡單','歐姆定律：求電流',`電源為 ${num(v)} V，電阻為 ${num(r)} Ω，求電流 I（A）。`,'A',i,'single',
-        'I = V ÷ R',`先找電壓 ${num(v)} V、電阻 ${num(r)} Ω，再用電壓除以電阻。`,
-        [`已知 V = ${num(v)} V，R = ${num(r)} Ω。`,'求電流使用 I = V ÷ R。',`I = ${num(v)} ÷ ${num(r)} = ${num(i)} A。`],
-        [[r/v,'你把公式上下顛倒成 R ÷ V，求電流應該是 V ÷ R。'],[v*r,'你使用了乘法，求電流要使用 V ÷ R。']],{v,r,i},[`${num(v)} V`,`${num(r)} Ω`,'I = ?']));
-    }
-    {
-      const i=pick([.25,.4,.5,.6,.75,.8,1.2,1.25,1.5,1.8,2.4]);
-      const r=pick([5,8,10,12,15,16,18,20,24]);
-      const v=d(i*r);
-      all.push(mk('簡單','歐姆定律：求電壓',`電流為 ${num(i)} A，電阻為 ${num(r)} Ω，求電壓 V（V）。`,'V',v,'single',
-        'V = I × R',`把電流 ${num(i)} A 乘上電阻 ${num(r)} Ω。`,
-        [`已知 I = ${num(i)} A，R = ${num(r)} Ω。`,'求電壓使用 V = I × R。',`V = ${num(i)} × ${num(r)} = ${num(v)} V。`],
-        [[r/i,'你使用了除法，但求電壓應該是 I × R。'],[r+i,'你把 I 和 R 相加；歐姆定律要求相乘。']],{v,r,i},['V = ?',`${num(r)} Ω`,`I = ${num(i)} A`]));
-    }
-    {
-      const r=pick([4,6,8,10,12,15,18,20,24,30,32,40,50,60]);
-      const i=pick([.25,.5,.75,1,1.2,1.5,2,2.5,3]);
-      const v=d(r*i);
-      all.push(mk('中等','反推電阻',`電源 ${num(v)} V，通過的電流 ${num(i)} A，求電阻 R（Ω）。`,'Ω',r,'single',
-        'R = V ÷ I',`用電壓 ${num(v)} 除以電流 ${num(i)}。`,
-        [`已知 V = ${num(v)} V，I = ${num(i)} A。`,'求電阻使用 R = V ÷ I。',`R = ${num(v)} ÷ ${num(i)} = ${num(r)} Ω。`],
-        [[v*i,'你使用了乘法；求電阻要使用 V ÷ I。'],[i/v,'你把電流與電壓的順序顛倒了，應該是 V ÷ I。']],{v,r,i},[`${num(v)} V`,'R = ?',`I = ${num(i)} A`]));
-    }
-    {
-      let r1=pick([2,4,5,6,8,10,12,15,18,20]),r2=pick([3,4,5,6,8,10,12,15,18,20]);
-      if(r1===r2)r2+=2;
-      const i=pick([.5,.75,1,1.25,1.5,2,2.5,3]);
-      const rt=r1+r2,v=d(rt*i);
-      all.push(mk('中等','串聯電路總電流',`${num(v)} V 電源連接 ${num(r1)} Ω 與 ${num(r2)} Ω 串聯電阻，求總電流（A）。`,'A',i,'series',
-        'R總 = R₁ + R₂；I = V ÷ R總',`先把 ${num(r1)} Ω 和 ${num(r2)} Ω 相加，再用 ${num(v)} V 除以總電阻。`,
-        [`串聯總電阻 R總 = ${num(r1)} + ${num(r2)} = ${num(rt)} Ω。`,'求總電流 I = V ÷ R總。',`I = ${num(v)} ÷ ${num(rt)} = ${num(i)} A。`],
-        [[v/r1,'你只用了第一個電阻，漏掉第二個串聯電阻。'],[v/r2,'你只用了第二個電阻，漏掉第一個串聯電阻。'],[v/(r1*r2),'你把串聯電阻相乘；串聯總電阻要相加。']],{v,r1,r2,i,rt}));
-    }
-    {
-      let r1=pick([3,4,6,8,9,12,15,18,24]),r2=pick([4,6,8,9,12,15,18,24,30]);
-      if(r1===r2)r2+=3;
-      const v=pick([12,18,24,36,48,60,72]);
-      const i1=v/r1,i2=v/r2,i=i1+i2;
-      all.push(mk('困難','並聯總電流',`${num(v)} V 電源接上 ${num(r1)} Ω 和 ${num(r2)} Ω 並聯，求電源總電流（A）。`,'A',i,'parallel',
-        'I總 = I₁ + I₂；I₁ = V ÷ R₁；I₂ = V ÷ R₂',`兩個並聯電阻的電壓都是 ${num(v)} V；分別除以 ${num(r1)} Ω、${num(r2)} Ω，再相加。`,
-        [`第一支路 I₁ = ${num(v)} ÷ ${num(r1)} ≈ ${num(i1)} A。`,`第二支路 I₂ = ${num(v)} ÷ ${num(r2)} ≈ ${num(i2)} A。`,`總電流 I = I₁ + I₂ ≈ ${num(i)} A（最後才四捨五入）。`],
-        [[v/(r1+r2),'你把並聯電阻當成串聯直接相加。'],[i1,'你漏算第二支路的電流。'],[i2,'你漏算第一支路的電流。']],{v,r1,r2,i,i1,i2}));
-    }
-    {
-      const rs=pick([1,2,3,4,5,6,8,10]);
-      let r1=pick([3,4,6,8,9,12,15,18,24]),r2=pick([4,6,8,9,12,15,18,24,30]);
-      if(r1===r2)r2+=3;
-      const v=pick([12,18,24,30,36,48,60,72]);
-      const rp=r1*r2/(r1+r2),rt=rs+rp,i=v/rt;
-      all.push(mk('困難','串並聯混合電路',`${num(v)} V 電源接 ${num(rs)} Ω 串聯（${num(r1)} Ω 與 ${num(r2)} Ω 並聯），求電源總電流（A）。`,'A',i,'mixed',
-        'R並 = R₁R₂ ÷ (R₁ + R₂)；R總 = R串 + R並；I = V ÷ R總',`先求（${num(r1)} × ${num(r2)}）÷（${num(r1)} + ${num(r2)}），再加 ${num(rs)} Ω，最後用 ${num(v)} V 除以總電阻。`,
-        [`並聯電阻 R並 = (${num(r1)} × ${num(r2)}) ÷ (${num(r1)} + ${num(r2)}) ≈ ${num(rp)} Ω。`,`串聯後 R總 = ${num(rs)} + R並 ≈ ${num(rt)} Ω。`,`電源總電流 I = ${num(v)} ÷ R總 ≈ ${num(i)} A（使用未四捨五入的總電阻計算）。`],
-        [[v/(rs+r1+r2),'你把兩個並聯電阻也直接相加；要先求並聯等效電阻。'],[v/rp,'你漏加串聯的電阻。'],[rt,'你求出了總電阻，但題目問的是電流。'],[rt/v,'你把 R ÷ V 寫反，應算 V ÷ R。']],{v,rs,r1,r2,rp,rt,i}));
-    }
-    {
-      const inflow=rand(22,64)/4;
-      const out=rand(2,Math.round(inflow*4)-3)/4;
-      const unknown=d(inflow-out);
-      all.push(mk('變化題','KCL 節點電流',`流入節點為 ${num(inflow)} A，其中一股流出 ${num(out)} A，求另一股流出電流（A）。`,'A',unknown,'kcl',
-        'KCL：ΣI流入 = ΣI流出',`列式 ${num(inflow)} = ${num(out)} + I未知，將已知的流出電流移到左邊。`,
-        [`利用 KCL：${num(inflow)} = ${num(out)} + I未知。`,`I未知 = ${num(inflow)} − ${num(out)}。`,`I未知 = ${num(unknown)} A。`],
-        [[inflow+out,'你把流入和已知流出電流相加了；這題要求另一股流出，應用減法。']],{inflow,out,unknown}));
-    }
-    {
-      const v=pick([9,12,15,18,20,24,30,36,40,48]);
-      const p=pick([12,15,18,20,24,25,28,30,36,40,45,50,60,72,80,96]);
-      const r=v*v/p;
-      all.push(mk('變化題','電功率反推電阻',`電壓為 ${num(v)} V，消耗功率為 ${num(p)} W，求電阻 R（Ω）。`,'Ω',r,'power',
-        'P = V² ÷ R，所以 R = V² ÷ P',`將電壓 ${num(v)} 先平方，再除以功率 ${num(p)}。`,
-        ['由 P = V² ÷ R 推得 R = V² ÷ P。',`代入 R = (${num(v)} × ${num(v)}) ÷ ${num(p)}。`,`R ≈ ${num(r)} Ω（最後依顯示精度四捨五入）。`],
-        [[p/v,'你求出的是電流 I = P ÷ V，題目問的是電阻 R。'],[v/p,'你把電壓只乘了一次；應使用 V² ÷ P。'],[v*p,'你把電壓乘以功率；本題應用 R = V² ÷ P。']],{v,p,r},[`${num(v)} V`,'R = ?',`P = ${num(p)} W`]));
-    }
-    // 兩題同難度內隨機換順序，依然保留難度由低到高。
-    for(let j=0;j<all.length;j+=2)if(Math.random()<.5)[all[j],all[j+1]]=[all[j+1],all[j]];
-    return all;
+  if(type===0){ // 125 × 100 = 12500：R 有 125 種、I 有 100 種。
+    const r=2+slot%125, i=d((Math.floor(slot/125)+1)*.2),v=d(r*i);
+    return make('簡單','歐姆定律：求電流',`${n(v)} V 電源接上 ${r} Ω 電阻，流過電阻的電流 I 是多少 A？`,'A',i,'single',
+      'I = V ÷ R',`已知電壓 ${n(v)} V 和電阻 ${r} Ω，把電壓除以電阻。`,
+      [`已知 V = ${n(v)} V、R = ${r} Ω。`,'求電流使用 I = V ÷ R。',`I = ${n(v)} ÷ ${r} = ${n(i)} A。`],
+      [[r/v,'你把公式寫反了（R ÷ V）；求電流要用 V ÷ R。'],[v*r,'你使用乘法，但求電流應該用電壓除以電阻。']],{v,r,i});
   }
-  let previous='';
-  try {previous=localStorage.getItem('basic_electricity_v13_previous_questions')||'';}catch(_){}
-  let questions=[],signature='';
-  for(let attempt=0;attempt<10;attempt++){
-    questions=generate();
-    signature=JSON.stringify(questions.map(q=>q.query));
-    if(signature!==previous)break;
+  if(type===1){
+    const r=2+slot%125,i=d((Math.floor(slot/125)+1)*.1),v=d(r*i);
+    return make('簡單','歐姆定律：求電壓',`電流為 ${n(i)} A，電阻為 ${r} Ω，求兩端電壓 V（伏特）。`,'V',v,'single',
+      'V = I × R',`電流是 ${n(i)} A，電阻是 ${r} Ω，兩者相乘就是電壓。`,
+      [`已知 I = ${n(i)} A、R = ${r} Ω。`,'求電壓使用 V = I × R。',`V = ${n(i)} × ${r} = ${n(v)} V。`],
+      [[r/i,'你使用除法計算，但求電壓應該用 I × R。'],[r+i,'你把電流與電阻相加，正確是相乘。']],{v,r,i});
   }
-  try{localStorage.setItem('basic_electricity_v13_previous_questions',signature);}catch(_){}
-  return questions;
+  if(type===2){
+    const r=3+slot%125,i=d((Math.floor(slot/125)+1)*.25),v=d(r*i);
+    return make('中等','由電流反推電阻',`電壓為 ${n(v)} V，電流為 ${n(i)} A，請計算電阻 R（Ω）。`,'Ω',r,'single',
+      'R = V ÷ I',`把 ${n(v)} V 除以 ${n(i)} A。`,
+      [`已知 V = ${n(v)} V、I = ${n(i)} A。`,'求電阻使用 R = V ÷ I。',`R = ${n(v)} ÷ ${n(i)} = ${r} Ω。`],
+      [[v*i,'你把電壓與電流相乘了；求電阻應該用除法。'],[i/v,'你把除法分子、分母寫反了。']],{v,r,i});
+  }
+  if(type===3){ // 50 × 50 × 5 = 12500
+    const r1=2+slot%50,r2=3+(Math.floor(slot/50)%50),i=[.5,.75,1,1.25,1.5][Math.floor(slot/2500)];
+    const rt=r1+r2,v=d(rt*i);
+    return make('中等','串聯電阻的總電流',`一個 ${n(v)} V 電源連接 ${r1} Ω 和 ${r2} Ω 串聯電阻，求總電流（A）。`,'A',i,'series',
+      'R總 = R₁ + R₂；I = V ÷ R總',`先算 ${r1} + ${r2} 的總電阻，再以 ${n(v)} V 除以總電阻。`,
+      [`串聯總電阻 R總 = ${r1} + ${r2} = ${rt} Ω。`,'使用歐姆定律 I = V ÷ R總。',`I = ${n(v)} ÷ ${rt} = ${n(i)} A。`],
+      [[v/r1,'你只算了第一個電阻，串聯要把兩個電阻相加。'],[v/r2,'你只算了第二個電阻，串聯要把兩個電阻相加。'],[v/(r1*r2),'你把串聯電阻相乘，串聯應該直接相加。']],{v,r1,r2,i,rt});
+  }
+  if(type===4){ // 25 × 25 × 20 = 12500
+    const r1=2+2*(slot%25),r2=3+2*(Math.floor(slot/25)%25),v=6*(Math.floor(slot/625)+1);
+    const i1=v/r1,i2=v/r2,i=i1+i2;
+    return make('困難','並聯支路電流與 KCL',`${v} V 電源接上 ${r1} Ω 和 ${r2} Ω 並聯電阻，求電源總電流（A）。`,'A',i,'parallel',
+      'I總 = I₁ + I₂；I₁ = V ÷ R₁；I₂ = V ÷ R₂',`並聯各支路電壓都是 ${v} V，分別用 ${v} 除以 ${r1} 和 ${r2}，再相加。`,
+      [`第一支路 I₁ = ${v} ÷ ${r1} ≈ ${n(i1)} A。`,`第二支路 I₂ = ${v} ÷ ${r2} ≈ ${n(i2)} A。`,`總電流 I = I₁ + I₂ ≈ ${n(i)} A；最後才依顯示精度四捨五入。`],
+      [[v/(r1+r2),'你把並聯電阻當成串聯相加了。'],[i1,'只算了第一支路，漏掉第二支路電流。'],[i2,'只算了第二支路，漏掉第一支路電流。']],{v,r1,r2,i,i1,i2});
+  }
+  if(type===5){ // 25 × 25 × 20 = 12500
+    const r1=4+2*(slot%25),r2=5+2*(Math.floor(slot/25)%25),rs=1+Math.floor(slot/625);
+    const v=24,rp=r1*r2/(r1+r2),rt=rs+rp,i=v/rt;
+    return make('困難','串並聯混合電路',`${v} V 電源接 ${rs} Ω 串聯（${r1} Ω 和 ${r2} Ω 並聯），求總電流（A）。`,'A',i,'mixed',
+      'R並 = R₁R₂ ÷ (R₁ + R₂)；R總 = R串 + R並；I = V ÷ R總',
+      `先求 (${r1} × ${r2}) ÷ (${r1} + ${r2})，再加上 ${rs} Ω，最後用 ${v} V 除以總電阻。`,
+      [`並聯電阻 R並 = (${r1} × ${r2}) ÷ (${r1} + ${r2}) ≈ ${n(rp)} Ω。`,`串聯總電阻 R總 = ${rs} + R並 ≈ ${n(rt)} Ω。`,`I = ${v} ÷ R總 ≈ ${n(i)} A（計算過程使用未四捨五入的值）。`],
+      [[v/(rs+r1+r2),'你把並聯的兩個電阻也直接相加了，應先求並聯等效電阻。'],[v/rp,'你漏加了串聯電阻。'],[rt,'你只算出總電阻，但題目問的是總電流。'],[rt/v,'你把公式寫成 R ÷ V，應該是 I = V ÷ R。']],{v,rs,r1,r2,rp,rt,i});
+  }
+  if(type===6){ // 125 × 100 = 12500
+    const inflow=d(20+(slot%125)*.2),out=d((Math.floor(slot/125)+1)*.1),unknown=d(inflow-out);
+    return make('變化題','KCL 節點電流',`流入節點的電流為 ${n(inflow)} A，其中一股流出 ${n(out)} A，求另一股流出電流（A）。`,'A',unknown,'kcl',
+      'KCL：ΣI流入 = ΣI流出',`列式 ${n(inflow)} = ${n(out)} + I未知，未知電流用減法求出。`,
+      [`依 KCL：${n(inflow)} = ${n(out)} + I未知。`,`移項 I未知 = ${n(inflow)} − ${n(out)}。`,`I未知 = ${n(unknown)} A。`],
+      [[inflow+out,'你把已知電流加起來，這題應該從流入總量減去已知流出。']],{inflow,out,unknown});
+  }
+  // 電功率題：125 × 100 = 12500。
+  const r=2+slot%125,i=d((Math.floor(slot/125)+1)*.05),v=d(r*i),p=d(v*i);
+  return make('變化題','由電功率反推電阻',`電壓為 ${n(v)} V，消耗功率為 ${n(p)} W，求電阻 R（Ω）。`,'Ω',r,'power',
+    'P = V² ÷ R；R = V² ÷ P',`先算 ${n(v)} × ${n(v)}，再除以 ${n(p)}。`,
+    ['由 P = V² ÷ R 推得 R = V² ÷ P。',`代入 R = (${n(v)} × ${n(v)}) ÷ ${n(p)}。`,`R = ${r} Ω（最後依顯示精度四捨五入）。`],
+    [[p/v,'你算的是電流 I = P ÷ V，而不是電阻 R。'],[v/p,'你只用了 V ÷ P，忘了 V²。'],[v*p,'你把電壓與功率相乘了，應使用 R = V² ÷ P。']],{v,p,r});
+}
+function makeRandomQuestions(){
+  const key='basic_electricity_recent_100k_questions';
+  let recent=[];
+  try{const value=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(value))recent=value.slice(-320).filter(Number.isInteger);}catch(_){/* 離線或隱私瀏覽模式仍能出題 */}
+  const draw=[];
+  for(let topic=0;topic<8;topic++){
+    const start=topic*QUESTIONS_PER_TYPE+1;
+    // 每類題型可選 12500 種，最近 40 回的同題型題號都盡量避開。
+    let id=0;
+    for(let tries=0;tries<50;tries++){
+      id=start+Math.floor(Math.random()*QUESTIONS_PER_TYPE);
+      if(!recent.includes(id))break;
+    }
+    if(recent.includes(id)){
+      const used=new Set(recent);
+      while(used.has(id))id=start+(id-start+1)%QUESTIONS_PER_TYPE;
+    }
+    draw.push(createQuestionFromId(id));
+  }
+  // 同難度的兩題可以交換順序，仍由簡單到變化題。
+  for(let j=0;j<8;j+=2)if(Math.random()<.5)[draw[j],draw[j+1]]=[draw[j+1],draw[j]];
+  try{localStorage.setItem(key,JSON.stringify([...recent,...draw.map(q=>q.id)].slice(-320)));}catch(_){/* fallback */}
+  return draw;
 }
 
 let questions=makeRandomQuestions();
@@ -389,8 +504,8 @@ let current=0,submitted=false,usedHints=0,results=[];
 const within=(x,y)=>Math.abs(x-y)<.00002;
 function diagram(q){
  if(q.type==='kcl')return `<svg viewBox="0 0 580 225" role="img" aria-label="節點電流分流示意"><path d="M45 110H300M300 110L525 40M300 110L525 183" stroke="#a7c1dd" stroke-width="5" fill="none"/><circle cx="300" cy="110" r="10" fill="#7badfa"/><text x="60" y="82" fill="#deeeff" font-size="18">${q.diagramData.inflow} A →</text><text x="400" y="31" fill="#aaf0da" font-size="18">${q.diagramData.out} A</text><text x="413" y="216" fill="#ffdfb7" font-size="18">I = ?</text></svg>`;
- if(q.type==='mixed'||q.type==='parallel')return `<svg viewBox="0 0 600 250" role="img" aria-label="18伏特電源與並聯電阻電路"><path d="M72 90H${q.type==='mixed'?140:301} ${q.type==='mixed'?'M230 90H301':''}V43H353M455 43H528V201H72V134" fill="none" stroke="#aabed7" stroke-width="5"/><path d="M72 90V100M72 129V134M52 101H92M59 114H85M52 128H92" stroke="#c1ddfa" stroke-width="3"/>${q.type==='mixed'?`<path d="M140 90l15 -16 15 32 15 -32 15 32 15 -32 15 16" stroke="#a7caff" fill="none" stroke-width="4"/><text x="185" y="60" fill="#d5eaff" font-size="18" text-anchor="middle">${q.diagramData.rs} Ω</text>`:''}<path d="M301 90V150H353M455 150H528V43" stroke="#aabed7" fill="none" stroke-width="5"/><path d="M353 43l13 -17 13 34 13 -34 13 34 13 -34 13 34 13 -17M353 150l13 -17 13 34 13 -34 13 34 13 -34 13 34 13 -17" stroke="#a8e5d4" fill="none" stroke-width="4"/><text x="70" y="66" fill="white" font-size="20">${q.diagramData.v} V</text><text x="402" y="18" fill="#a8e5d4" font-size="17">${q.diagramData.r1} Ω</text><text x="402" y="192" fill="#ffe0a9" font-size="17">${q.diagramData.r2} Ω</text><text x="291" y="235" text-anchor="middle" fill="#d1e1f5" font-size="18">I總 = ?</text></svg>`;
- if(q.type==='series')return `<svg viewBox="0 0 600 210" role="img" aria-label="40伏特電源串聯兩個電阻"><path d="M74 70H143M244 70H320M424 70H520V173H74V120" fill="none" stroke="#afc4db" stroke-width="5"/><path d="M74 70V84M74 110V120M52 85H96M59 98H88M52 110H96" stroke="#d2e5f9" stroke-width="3"/><path d="M143 70l13 -17 15 34 15 -34 15 34 15 -34 15 34 13 -17M320 70l13 -17 15 34 15 -34 15 34 15 -34 15 34 13 -17" stroke="#a4c6ff" stroke-width="4" fill="none"/><text x="74" y="40" fill="white" font-size="20">${q.diagramData.v} V</text><text x="195" y="33" fill="white" font-size="19">${q.diagramData.r1} Ω</text><text x="370" y="33" fill="white" font-size="19">${q.diagramData.r2} Ω</text><text x="290" y="202" fill="#a3ddfb" text-anchor="middle" font-size="18">I總 = ?</text></svg>`;
+ if(q.type==='mixed'||q.type==='parallel')return `<svg viewBox="0 0 600 250" role="img" aria-label="電源與並聯或串並聯混合電阻電路"><path d="M72 90H${q.type==='mixed'?140:301} ${q.type==='mixed'?'M230 90H301':''}V43H353M455 43H528V201H72V134" fill="none" stroke="#aabed7" stroke-width="5"/><path d="M72 90V100M72 129V134M52 101H92M59 114H85M52 128H92" stroke="#c1ddfa" stroke-width="3"/>${q.type==='mixed'?`<path d="M140 90l15 -16 15 32 15 -32 15 32 15 -32 15 16" stroke="#a7caff" fill="none" stroke-width="4"/><text x="185" y="60" fill="#d5eaff" font-size="18" text-anchor="middle">${q.diagramData.rs} Ω</text>`:''}<path d="M301 90V150H353M455 150H528V43" stroke="#aabed7" fill="none" stroke-width="5"/><path d="M353 43l13 -17 13 34 13 -34 13 34 13 -34 13 34 13 -17M353 150l13 -17 13 34 13 -34 13 34 13 -34 13 34 13 -17" stroke="#a8e5d4" fill="none" stroke-width="4"/><text x="70" y="66" fill="white" font-size="20">${q.diagramData.v} V</text><text x="402" y="18" fill="#a8e5d4" font-size="17">${q.diagramData.r1} Ω</text><text x="402" y="192" fill="#ffe0a9" font-size="17">${q.diagramData.r2} Ω</text><text x="291" y="235" text-anchor="middle" fill="#d1e1f5" font-size="18">I總 = ?</text></svg>`;
+ if(q.type==='series')return `<svg viewBox="0 0 600 210" role="img" aria-label="電源串聯兩個電阻"><path d="M74 70H143M244 70H320M424 70H520V173H74V120" fill="none" stroke="#afc4db" stroke-width="5"/><path d="M74 70V84M74 110V120M52 85H96M59 98H88M52 110H96" stroke="#d2e5f9" stroke-width="3"/><path d="M143 70l13 -17 15 34 15 -34 15 34 15 -34 15 34 13 -17M320 70l13 -17 15 34 15 -34 15 34 15 -34 15 34 13 -17" stroke="#a4c6ff" stroke-width="4" fill="none"/><text x="74" y="40" fill="white" font-size="20">${q.diagramData.v} V</text><text x="195" y="33" fill="white" font-size="19">${q.diagramData.r1} Ω</text><text x="370" y="33" fill="white" font-size="19">${q.diagramData.r2} Ω</text><text x="290" y="202" fill="#a3ddfb" text-anchor="middle" font-size="18">I總 = ?</text></svg>`;
  const label=q.type==='power'?`${q.diagramData.v} V / ${q.diagramData.p} W`:q.name.includes('求電壓')?'V = ?':`${q.diagramData.v} V`;
  const rLabel=q.type==='power'||q.name.includes('反推電阻')?'R = ?':`${q.diagramData.r} Ω`;
  const iLabel=q.name.includes('求電流')?'I = ?':q.type==='power'?'I':`${q.diagramData.i} A`;
@@ -398,17 +513,24 @@ function diagram(q){
 }
 function badges(){get('calcLevels').innerHTML=questions.map((q,j)=>`<span class="level-pill ${j===current?'now':results[j]?(results[j].ok?'passed':'failed'):''}">第 ${j+1} 題・${q.level}${results[j]?(results[j].ok?' ✓':' ✕'):''}</span>`).join('')}
 function render(){badges();if(current>=questions.length)return summary();const q=questions[current];
- get('calcPracticeBody').innerHTML=`<div class="practice-box"><div class="practice-topline"><div><div class="practice-legend"><span>第 ${current+1}/8 題・${q.level}　｜　12.5 分</span></div><div style="font-size:.86rem;color:#b8cde4">${q.name}</div></div><div class="practice-hint"><button type="button" id="practiceHint" class="btn" aria-expanded="false">💡 提示 0/2</button><div id="practiceHintPanel" class="hint-popover" hidden></div></div></div><div class="practice-question">${q.query}</div><div class="practice-circuit">${diagram(q)}</div><form id="practiceForm"><div class="practice-answer-row"><label for="practiceValue">你的答案：</label><input type="number" inputmode="decimal" id="practiceValue" step="any" min="0" max="10000" required placeholder="輸入數值"><span>${q.unit}</span><button class="btn primary" type="submit">送出並分析</button></div></form><p class="muted small">目前以 <span id="practiceDigits">${digits}</span> 位小數判定答案，提示不扣分。</p><div class="practice-feedback hidden" id="practiceFeedback" aria-live="polite"></div><div class="practice-actions"><span class="muted small">提示第一次只給公式；第二次提供解題方向。</span><button id="practiceNext" type="button" class="btn primary" disabled>${current===7?'查看成績與錯誤分析':'下一題 →'}</button></div></div>`;
+ get('calcPracticeBody').innerHTML=`<div class="practice-box"><div class="practice-topline"><div><div class="practice-legend"><span>第 ${current+1}/8 題・${q.level}　｜　12.5 分</span><span class="bank-question-id">題庫編號 #${String(q.id).padStart(6,'0')}</span></div><div style="font-size:.86rem;color:#b8cde4">${q.name}</div></div><div class="practice-hint"><button type="button" id="practiceHint" class="btn" aria-expanded="false">💡 提示 0/2</button><div id="practiceHintPanel" class="hint-popover" hidden></div></div></div><div class="practice-question">${q.query}</div><div class="practice-circuit">${diagram(q)}</div><form id="practiceForm"><div class="practice-answer-row"><label for="practiceValue">你的答案：</label><input type="number" inputmode="decimal" id="practiceValue" step="any" min="0" max="10000" required placeholder="輸入數值"><span>${q.unit}</span><button class="btn primary" type="submit">送出並分析</button></div></form><p class="muted small">目前以 <span id="practiceDigits">${digits}</span> 位小數判定答案，提示不扣分。</p><div class="practice-feedback hidden" id="practiceFeedback" aria-live="polite"></div><div class="practice-actions"><span class="muted small">提示第一次只給公式；第二次提供解題方向。</span><button id="practiceNext" type="button" class="btn primary" disabled>${current===7?'查看成績與錯誤分析':'下一題 →'}</button></div></div>`;
  get('practiceForm').addEventListener('submit',onSubmit);get('practiceHint').addEventListener('click',onHint);get('practiceNext').addEventListener('click',()=>{if(submitted){current++;submitted=false;usedHints=0;render()}})
 }
 function onHint(){if(submitted||usedHints>=2)return;usedHints++;const q=questions[current],box=get('practiceHintPanel');box.hidden=false;box.innerHTML=`<div><b>第一次｜公式</b><p>${q.formula}</p></div>${usedHints===2?`<div><b>第二次｜解題方向</b><p>${q.hint}</p></div>`:''}`;get('practiceHint').textContent='💡 提示 '+usedHints+'/2';get('practiceHint').setAttribute('aria-expanded','true');if(usedHints===2)get('practiceHint').disabled=true}
 function onSubmit(e){e.preventDefault();if(submitted)return;const q=questions[current],raw=get('practiceValue').value.trim(),v=Number(raw);if(!raw||!Number.isFinite(v)||v<0||v>10000)return;const correct=Number(v.toFixed(digits))===Number(q.answer.toFixed(digits));let why='計算過程正確，公式和單位也要記住。';if(!correct){why=q.wrong.find(([n])=>within(n,v))?.[1]||'可能是公式選錯、混淆串並聯、單位不一致或算術計算有誤；請對照以下解答逐步檢查。'}results.push({ok:correct,value:v,digits,hints:usedHints,why});submitted=true;badges();const el=get('practiceFeedback');el.classList.remove('hidden');el.classList.add(correct?'good':'bad');el.innerHTML=`<h4>${correct?'✓ 正確！獲得 12.5 分':'✕ 錯誤分析'}</h4><p>你的答案：${v.toFixed(digits)} ${q.unit}　｜　正確答案：${q.answer.toFixed(digits)} ${q.unit}</p><p class="highlighted">${why}</p><p><b>完整計算步驟：</b></p><ol>${q.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`;get('practiceValue').disabled=true;get('practiceForm').querySelector('button').disabled=true;get('practiceHint').disabled=true;get('practiceNext').disabled=false}
-function summary(){const score=results.filter(x=>x.ok).length*12.5;const subs=['簡單','中等','困難','變化題'].map(t=>t+' '+results.filter((r,i)=>questions[i].level===t&&r.ok).length+'/2').join(' · ');get('calcPracticeBody').innerHTML=`<div class="practice-box practice-summary"><h4>八題測驗完成｜學習分析報告</h4><div class="practice-grade">${score.toFixed(1).replace(/\.0$/,'')} <small>/ 100 分</small></div><p>答對 ${score/12.5}/8 題｜${subs}</p><p class="muted">使用提示共 ${results.reduce((a,r)=>a+r.hints,0)} 次。提示不扣分。</p>${results.map((r,j)=>`<details ${r.ok?'':'open'}><summary>第 ${j+1} 題 ${questions[j].level}：${r.ok?'✓ 正確':'✕ 錯誤'}｜${questions[j].name}</summary><p>你的答案 ${r.value.toFixed(r.digits)} ${questions[j].unit}；正確答案 ${questions[j].answer.toFixed(r.digits)} ${questions[j].unit}</p><p><b>錯誤分析：</b>${r.why}</p><ol>${questions[j].steps.map(t=>`<li>${t}</li>`).join('')}</ol></details>`).join('')}<button class="btn primary" id="practiceAgain" type="button">重新抽題挑戰</button></div>`;get('practiceAgain').addEventListener('click',reset)}
+function summary(){const score=results.filter(x=>x.ok).length*12.5;const subs=['簡單','中等','困難','變化題'].map(t=>t+' '+results.filter((r,i)=>questions[i].level===t&&r.ok).length+'/2').join(' · ');get('calcPracticeBody').innerHTML=`<div class="practice-box practice-summary"><h4>八題測驗完成｜10 萬題題庫學習分析</h4><div class="practice-grade">${score.toFixed(1).replace(/\.0$/,'')} <small>/ 100 分</small></div><p>答對 ${score/12.5}/8 題｜${subs}</p><p class="muted">使用提示共 ${results.reduce((a,r)=>a+r.hints,0)} 次。提示不扣分。</p>${results.map((r,j)=>`<details ${r.ok?'':'open'}><summary>第 ${j+1} 題 ${questions[j].level}（#${String(questions[j].id).padStart(6,'0')}）：${r.ok?'✓ 正確':'✕ 錯誤'}｜${questions[j].name}</summary><p>你的答案 ${r.value.toFixed(r.digits)} ${questions[j].unit}；正確答案 ${questions[j].answer.toFixed(r.digits)} ${questions[j].unit}</p><p><b>錯誤分析：</b>${r.why}</p><ol>${questions[j].steps.map(t=>`<li>${t}</li>`).join('')}</ol></details>`).join('')}<button class="btn primary" id="practiceAgain" type="button">重新抽一組 8 題</button></div>`;get('practiceAgain').addEventListener('click',reset)}
 function reset(){current=0;submitted=false;usedHints=0;results=[];questions=makeRandomQuestions();render()}
 get('calcRestart').addEventListener('click',reset);
 setMode('i',{v:10000,r:10000});render();
 })();
 
+
+// 平板與手機：章節目錄可收合，也能正常存取全部 21 小節。
+(()=>{const toggle=document.getElementById('toggleChapters'),menu=document.getElementById('navChapters');
+if(!toggle||!menu)return;
+toggle.addEventListener('click',()=>{const open=menu.classList.toggle('expanded');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'收起章節目錄 ▴':'展開 21 節目錄 ▾'});
+menu.addEventListener('click',event=>{if(event.target.closest('.nav-btn')&&window.matchMedia('(max-width:1100px)').matches){menu.classList.remove('expanded');toggle.setAttribute('aria-expanded','false');toggle.textContent='展開 21 節目錄 ▾';}});
+})();
 </script>
 </body>
 </html>
